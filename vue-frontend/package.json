@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@swisscom/sdx": "file:dependencies/sdx-2.144.1.tgz",
     "axios": "^1.7.3",
-    "vue": "^3.4.29",
-    "@swisscom/sdx": "file:dependencies/sdx-2.144.1.tgz"
+    "vue": "^3.4.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
-    "vite": "^5.3.1"
+    "vite": "^6.2.1"
   }
 }
