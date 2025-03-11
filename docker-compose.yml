@@ -1,0 +1,14 @@
+services:
+  flask-app:
+    build:
+      context: flask-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask-backend:/app # For development and live reload
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=api.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=5000
