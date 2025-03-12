@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@swisscom/sdx": "file:dependencies/sdx-2.144.1.tgz",
     "axios": "^1.7.3",
+    "prettier": "^3.5.3",
     "vue": "^3.4.29"
   },
   "devDependencies": {

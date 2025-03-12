@@ -27,4 +27,4 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true  # Force Vite to detect file changes
-      - FLASK_API_URL=http://localhost:5000
+      - VITE_API_URL=http://localhost:5000

@@ -49,7 +49,7 @@ def get_data():
             "urn": entity["urn"],
             "type": entity["type"],
             "name": entity["name"],
-            "description": entity["description"],
+            "description": entity["description"] if entity["description"] else "No description",
             "platform": entity["platform"]["name"].upper()
         })
 
