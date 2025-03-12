@@ -1,11 +1,6 @@
 <template>
-  <template v-if="isLoading">
-    <sdx-loading-spinner />
-  </template>
-
-  <template v-else-if="error">
-    <p class="error">{{ error }}</p>
-  </template>
+  <sdx-loading-spinner v-if="isLoading" />
+  <ErrorCard :error="error" />
 
   <div class="row row--gutters">
     <div v-for="entity in entities" :key="entity.urn" class="col-lg-6 col-xl-4">
@@ -20,12 +15,14 @@
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
+import ErrorCard from '@/components/ErrorCard.vue';
 import { onMounted } from 'vue';
 import { useFetch } from '@/composables/useFetch.js';
 
 export default {
   components: {
     CustomButton,
+    ErrorCard,
   },
   data() {
     return {
@@ -35,7 +32,7 @@ export default {
     };
   },
   setup() {
-    let { data: entities, error, isLoading, fetchData } = useFetch('/api');
+    let { data: entities, error, isLoading, fetchData } = useFetch('/api/dataset_entities_list');
     onMounted(fetchData);
     return { entities, error, isLoading };
   },
