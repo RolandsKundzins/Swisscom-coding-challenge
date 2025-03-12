@@ -27,3 +27,4 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true  # Force Vite to detect file changes
+      - VITE_API_URL=http://localhost:5000
