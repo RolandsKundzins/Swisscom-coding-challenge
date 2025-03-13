@@ -1,0 +1,32 @@
+name: CI Pipeline
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#   push:
+#     branches:
+#       - main
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: docker compose up --build --abort-on-container-exit
+
+      - name: Wait for Services to be Ready
+        run: sleep 10 # Waiting for Flask & Vue to start (adjust as needed)
+
+      - name: Run Backend Tests
+        run: docker-compose run --rm flask-app pytest
+
+      - name: Stop and Clean up Docker
+        run: docker-compose down
