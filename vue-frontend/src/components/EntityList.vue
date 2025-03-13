@@ -1,5 +1,4 @@
 <template>
-  <sdx-loading-spinner v-if="isLoading" />
   <ErrorCard :error="error" />
 
   <div class="row row--gutters">
@@ -11,12 +10,22 @@
       </sdx-card>
     </div>
   </div>
+
+  <div class="row row--gutters" style="justify-content: center">
+    <sdx-button
+      theme="primary"
+      :label="isMoreData ? 'Load more' : 'No more data'"
+      :disabled="!isMoreData"
+      :loading="isLoading"
+      @click="loadMore"
+    />
+  </div>
 </template>
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
 import ErrorCard from '@/components/ErrorCard.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useFetch } from '@/composables/useFetch.js';
 
 export default {
@@ -24,17 +33,24 @@ export default {
     CustomButton,
     ErrorCard,
   },
-  data() {
-    return {
-      entities: null,
-      error: null,
-      isLoading: false,
-    };
-  },
   setup() {
-    let { data: entities, error, isLoading, fetchData } = useFetch('/api/dataset_entities_list');
+    // If need to use the request in multiple components in the same page, should use Pinia
+    const { data: entities, error, isLoading, nextScrollId, fetchData } = useFetch('/api/dataset_entities_list');
+    const isMoreData = ref(true);
+
     onMounted(fetchData);
-    return { entities, error, isLoading };
+
+    const loadMore = () => {
+      if (!nextScrollId.value) {
+        isMoreData.value = false;
+        return;
+      }
+
+      fetchData(nextScrollId.value);
+      if (nextScrollId.value) isMoreData.value = false;
+    };
+
+    return { entities, error, isLoading, nextScrollId, isMoreData, loadMore };
   },
 };
 </script>
