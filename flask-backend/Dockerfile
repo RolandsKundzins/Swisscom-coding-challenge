@@ -12,5 +12,4 @@ COPY . .
 
 EXPOSE 5000
 
-# Consider using more workers (4) for production
 CMD ["gunicorn", "--reload", "--workers=2", "--timeout=120", "--bind=0.0.0.0:5000", "api:app"]

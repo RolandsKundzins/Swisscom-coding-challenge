@@ -1,4 +1,5 @@
 Flask==3.0.3
 gunicorn==23.0.0
-acryl-datahub==0.14.1.12
+acryl-datahub==0.15.0.1
 flask_cors==5.0.1
+pytest==8.3.5
