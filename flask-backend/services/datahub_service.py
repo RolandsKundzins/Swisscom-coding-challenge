@@ -1,7 +1,4 @@
 from datahub.ingestion.graph.client import DatahubClientConfig, DataHubGraph
-import logging
-
-log = logging.getLogger(__name__)
 
 config = DatahubClientConfig(server="https://api.datahub.richert.li")
 graph = DataHubGraph(config)
@@ -45,7 +42,6 @@ def fetch_dataset_entities(scroll_id=None):
             "description": entity["description"] if entity["description"] else "No description",
             "platform": entity["platform"]["name"].upper()
         })
-    log.info(f"Data from /dataset_entities_list: {entity_list}")
 
     return {
         "next_scroll_id": next_scroll_id,

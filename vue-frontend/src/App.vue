@@ -4,7 +4,6 @@
       <div class="col">
         <h1 class="d3">VueJS+Flask Fullstack Example</h1>
         <EntityList />
-        <!-- <sdx-scroll-to-top></sdx-scroll-to-top> -->
       </div>
     </div>
   </div>

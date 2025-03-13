@@ -8,11 +8,20 @@ datahub_bp = Blueprint("data", __name__)  # Define Blueprint
 @datahub_bp.route("/dataset_entities_list", methods=["GET"])
 def get_data():
     """
-        GET endpoint to retrieve all entities of type "Dataset" from DataHub in a paginated manner
-    """
-    log.info("Handling GET request for /api")
+    Fetch dataset entities from DataHub with optional pagination.
 
-    scroll_id = request.args.get("scroll_id")
+    Query Parameters:
+        scrollId (str, optional): Token for fetching the next page.
+
+    Returns:
+        JSON with:
+        - next_scroll_id (str): Token for the next batch.
+        - entity_list (list): List of dataset entities.
+
+    Example:
+        GET /api/dataset_entities_list?scrollId=abc123
+    """
+    scroll_id = request.args.get("scrollId")
     return fetch_dataset_entities(scroll_id)
 
 
