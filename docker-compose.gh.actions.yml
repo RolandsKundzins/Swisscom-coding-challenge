@@ -1,0 +1,5 @@
+services:
+  flask-app:
+    command: pytest
+    environment:
+      - FLASK_ENV=testing
