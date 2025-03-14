@@ -18,9 +18,9 @@
 
 <script>
 import { onMounted, computed } from 'vue';
-import CustomButton from '@/components/CustomButton.vue';
 import ErrorCard from '@/components/ErrorCard.vue';
-import LoadMoreButton from './LoadMoreButton.vue';
+import CustomButton from '@/components/CustomButton.vue';
+import LoadMoreButton from '@/components/LoadMoreButton.vue';
 import { useFetch } from '@/composables/useFetch.js';
 
 export default {
@@ -35,6 +35,7 @@ export default {
 
     onMounted(fetchData);
 
+    // recompute only when nextScrollId changes
     const isMoreData = computed(() => !!nextScrollId.value);
 
     const loadMore = () => {

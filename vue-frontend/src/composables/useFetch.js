@@ -13,7 +13,6 @@ export function useFetch(baseUrl) {
     error.value = null;
 
     try {
-      let url = baseUrl;
       const params = scrollId ? { scrollId } : {};
       const response = await apiClient.get(baseUrl, { params });
       data.value = [...data.value, ...response.data.entity_list];
