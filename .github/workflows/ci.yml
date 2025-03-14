@@ -29,13 +29,20 @@ jobs:
 
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
-        # Runs backend tests after Playwright
 
-      # - name: Install Playwright Browsers
-      # run: docker compose exec playwright-tests npx playwright install
       - name: Run Playwright Tests
         run: docker compose exec playwright-tests npx playwright test --debug
-        # Now possible since the container stays alive
+
+      - name: Capture Logs on Failure
+        if: failure()
+        run: |
+          echo "Capturing logs due to failure..."
+          docker compose logs flask-app > flask-app.log
+          docker compose logs vue-frontend > vue-frontend.log
+          docker compose logs playwright-tests > playwright-tests.log
+          cat flask-app.log
+          cat vue-frontend.log
+          cat playwright-tests.log
 
       - name: Stop and Clean up Docker
         run: docker compose down -v
