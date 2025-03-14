@@ -34,18 +34,22 @@ jobs:
       - name: Install Node Dependencies for Playwright
         run: docker compose exec playwright npm install
 
+      - name: Install Playwright Browsers
+        run: docker compose exec playwright npx playwright install
+
       - name: Run Playwright Tests
         run: docker compose exec playwright npx playwright test
 
-      # - name: Capture Docker logs
-      #   if: always()
-      #   run: docker compose logs > docker-compose.log # TODO arhive logs
+      - name: Capture Docker logs
+        if: always()
+        run: docker compose logs > docker-compose.log
 
-      # - name: Save log file to artifacts
-      #   if: always()
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: docker-compose-log
+      - name: Save log file to artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: docker-compose-log
+          path: docker-compose.log
 
       - name: Stop and Clean up Docker
         if: always()
