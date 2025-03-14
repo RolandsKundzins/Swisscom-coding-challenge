@@ -21,7 +21,7 @@ def test_get_dataset_entities_list(client):
     """Test the API call to /dataset_entities_list with and without scroll_id"""
 
     # First request without scroll_id
-    data = validate_response(client.get("/api/dataset_entities_list"))
+    data = validate_response(client.get("/api/dataset_entities_listz"))
 
     # Use the next_scroll_id from the first response to request the next page
     if data["next_scroll_id"]:

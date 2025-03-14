@@ -13,7 +13,7 @@ test('homepage should load and display the title and first card', async ({ page 
   });
 
   await test.step('Check button inside first sdx-card', async () => {
-    const button = page.locator('sdx-button.custom-buttonzzzzzzzzzzzz').first(); // TODO: fix me later back (without zzz)
+    const button = page.locator('sdx-button.custom-button').first();
 
     try {
       await expect(button).toBeVisible();
