@@ -27,13 +27,13 @@ jobs:
           echo "Waiting for services to start..."
           sleep 10  # Adjust based on startup time
 
-      - name: Run Playwright Tests
-        run: docker compose exec playwright-tests npx playwright test
-        # Now possible since the container stays alive
-
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
         # Runs backend tests after Playwright
+
+      - name: Run Playwright Tests
+        run: docker compose exec playwright-tests npx playwright test
+        # Now possible since the container stays alive
 
       - name: Stop and Clean up Docker
         run: docker compose down -v
