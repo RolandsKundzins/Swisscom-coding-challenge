@@ -31,6 +31,10 @@ jobs:
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
 
+      - name: Install dependencies
+        run: npm ci
+        working-directory: vue-frontend
+
       - name: Install Playwright Browsers
         working-directory: vue-frontend
         run: npx playwright install --with-deps
@@ -39,9 +43,15 @@ jobs:
         working-directory: vue-frontend
         run: npx playwright test
 
-      - name: Capture Docker logs
-        if: always()
-        run: docker compose logs > docker-compose.log
+      # - name: Capture Docker logs
+      #   if: always()
+      #   run: docker compose logs > docker-compose.log # TODO arhive logs
+
+      # - name: Save log file to artifacts
+      #   if: always()
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: docker-compose-log
 
       - name: Stop and Clean up Docker
         if: always()
