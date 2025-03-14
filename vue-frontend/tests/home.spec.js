@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('homepage should load and display the title and first card', async ({ page }) => {
+test('Homepage should load and display the title and at least one card', async ({ page }) => {
   await page.goto('/');
 
   await test.step('Check page title', async () => {

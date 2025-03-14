@@ -1,3 +1,5 @@
+# Workflow that runs on every pull request and push to "main" branch
+
 name: CI Pipeline
 
 on:
