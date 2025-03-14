@@ -23,24 +23,6 @@ services:
     volumes:
       - ./vue-frontend:/app
     working_dir: /app
-    # Run all Playwright tests; if you prefer running a specific file, adjust the command accordingly.
-    command: ["tail", "-f", "/dev/null"]
-
-  # playwright-tests:
-  #   image: mcr.microsoft.com/playwright:v1.51.0
-  #   depends_on:
-  #     - vue-frontend
-  #     - flask-app
-  #   environment:
-  #     - BASE_URL=http://vue-frontend:5173
-  #   working_dir: /app/vue-frontend
-  #   volumes:
-  #     - .:/app
-  #   command:
-  #     [
-  #       "sh",
-  #       "-c",
-  #       "npm install --include=dev && npx playwright install && npx playwright test",
-  #     ]
-  # command: ["tail", "-f", "/dev/null"]
-  # command: ["npx", "playwright", "test"]
+    # Install dependencies and keep the container running
+    command: >
+      sh -c "npm install && npx playwright install && tail -f /dev/null"
