@@ -20,12 +20,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Docker Compose
-        run: docker compose -f docker-compose.yml -f docker-compose.gh.actions.yml up --build &
+        run: docker compose -f docker-compose.yml -f docker-compose.gh.actions.yml up --build -d
 
       - name: Wait for Services to be Ready
         run: |
           echo "Waiting for services to start..."
-          sleep 10  # Adjust based on startup time
+          sleep 30  # Adjust based on startup time
 
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
