@@ -23,5 +23,11 @@ services:
     working_dir: /app/vue-frontend
     volumes:
       - .:/app
-    command: ["tail", "-f", "/dev/null"]
+    command:
+      [
+        "sh",
+        "-c",
+        "npm install --include=dev && npx playwright install && npx playwright test",
+      ]
+    # command: ["tail", "-f", "/dev/null"]
     # command: ["npx", "playwright", "test"]
