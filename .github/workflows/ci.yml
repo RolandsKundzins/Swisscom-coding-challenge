@@ -31,9 +31,8 @@ jobs:
         run: docker compose exec flask-app pytest
         # Runs backend tests after Playwright
 
-      - name: Install Playwright Browsers
-        run: docker compose exec playwright-tests npx playwright install
-
+      # - name: Install Playwright Browsers
+      # run: docker compose exec playwright-tests npx playwright install
       - name: Run Playwright Tests
         run: docker compose exec playwright-tests npx playwright test
         # Now possible since the container stays alive
