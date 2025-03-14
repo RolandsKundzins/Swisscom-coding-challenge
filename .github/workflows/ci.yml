@@ -30,20 +30,11 @@ jobs:
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
 
-      - name: Run Playwright Tests
-        run: docker compose exec playwright-tests npx playwright test
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
-      - name: Print Docker Logs
-        if: always() # Ensures this step runs no matter what (success or failure)
-        run: |
-          echo "---- Flask App Logs ----"
-          docker compose logs flask-app || true
-
-          echo "---- Vue Frontend Logs ----"
-          docker compose logs vue-frontend || true
-
-          echo "---- Playwright Test Logs ----"
-          docker compose logs playwright-tests || true
+      - name: Run Playwright tests
+        run: npx playwright test
 
       - name: Stop and Clean up Docker
         run: docker compose down -v
