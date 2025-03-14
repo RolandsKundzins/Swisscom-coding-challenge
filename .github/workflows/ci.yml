@@ -31,17 +31,8 @@ jobs:
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: vue-frontend
-
-      - name: Install Playwright Browsers
-        working-directory: vue-frontend
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        working-directory: vue-frontend
-        run: npx playwright test
+      - name: Run Playwright Tests
+        run: docker compose exec playwright npx playwright test
 
       # - name: Capture Docker logs
       #   if: always()
