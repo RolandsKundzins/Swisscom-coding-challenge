@@ -31,18 +31,19 @@ jobs:
         run: docker compose exec flask-app pytest
 
       - name: Run Playwright Tests
-        run: docker compose exec playwright-tests npx playwright test --debug
+        run: docker compose exec playwright-tests npx playwright test
 
-      - name: Capture Logs on Failure
-        if: failure()
+      - name: Print Docker Logs
+        if: always() # Ensures this step runs no matter what (success or failure)
         run: |
-          echo "Capturing logs due to failure..."
-          docker compose logs flask-app > flask-app.log
-          docker compose logs vue-frontend > vue-frontend.log
-          docker compose logs playwright-tests > playwright-tests.log
-          cat flask-app.log
-          cat vue-frontend.log
-          cat playwright-tests.log
+          echo "---- Flask App Logs ----"
+          docker compose logs flask-app || true
+
+          echo "---- Vue Frontend Logs ----"
+          docker compose logs vue-frontend || true
+
+          echo "---- Playwright Test Logs ----"
+          docker compose logs playwright-tests || true
 
       - name: Stop and Clean up Docker
         run: docker compose down -v
