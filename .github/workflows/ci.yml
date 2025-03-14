@@ -46,7 +46,7 @@ jobs:
 
       - name: Save log file to artifacts
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docker-compose-log
           path: docker-compose.log
