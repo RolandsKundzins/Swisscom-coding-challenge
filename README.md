@@ -6,7 +6,10 @@
 
 ## TO run the automated tests:
 
-`docker-compose run --rm flask-app pytest`
+- For flask-backend:
+  `docker compose run --rm flask-app pytest`
+- For vue-frontend:
+  `docker compose exec playwright-tests npx playwright test`
 
 # Additional information
 
