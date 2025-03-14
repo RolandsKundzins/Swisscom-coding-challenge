@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "playwright test"
   },
   "dependencies": {
+    "@playwright/test": "^1.51.0",
     "@swisscom/sdx": "file:dependencies/sdx-2.144.1.tgz",
     "axios": "^1.7.3",
     "prettier": "^3.5.3",

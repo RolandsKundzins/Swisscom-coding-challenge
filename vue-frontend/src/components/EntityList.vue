@@ -12,45 +12,39 @@
   </div>
 
   <div class="row row--gutters" style="justify-content: center">
-    <sdx-button
-      theme="primary"
-      :label="isMoreData ? 'Load more' : 'No more data'"
-      :disabled="!isMoreData"
-      :loading="isLoading"
-      @click="loadMore"
-    />
+    <LoadMoreButton :isMoreData="isMoreData" :isLoading="isLoading" :loadMore="loadMore" />
   </div>
 </template>
 
 <script>
-import CustomButton from '@/components/CustomButton.vue';
+import { onMounted, computed } from 'vue';
 import ErrorCard from '@/components/ErrorCard.vue';
-import { onMounted, ref } from 'vue';
+import CustomButton from '@/components/CustomButton.vue';
+import LoadMoreButton from '@/components/LoadMoreButton.vue';
 import { useFetch } from '@/composables/useFetch.js';
 
 export default {
   components: {
     CustomButton,
     ErrorCard,
+    LoadMoreButton,
   },
   setup() {
-    // If need to use the request in multiple components in the same page, should use Pinia
+    // If you need to use the request in multiple components on the same page, consider using Pinia
     const { data: entities, error, isLoading, nextScrollId, fetchData } = useFetch('/api/dataset_entities_list');
-    const isMoreData = ref(true);
 
     onMounted(fetchData);
 
-    const loadMore = () => {
-      if (!nextScrollId.value) {
-        isMoreData.value = false;
-        return;
-      }
+    // recompute only when nextScrollId changes
+    const isMoreData = computed(() => !!nextScrollId.value);
 
-      fetchData(nextScrollId.value);
-      if (nextScrollId.value) isMoreData.value = false;
+    const loadMore = () => {
+      if (nextScrollId.value) {
+        fetchData(nextScrollId.value);
+      }
     };
 
-    return { entities, error, isLoading, nextScrollId, isMoreData, loadMore };
+    return { entities, error, isLoading, isMoreData, loadMore };
   },
 };
 </script>

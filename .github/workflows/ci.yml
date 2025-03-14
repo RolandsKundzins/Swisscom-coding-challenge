@@ -1,0 +1,46 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Max timeout for the job in minutes
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: docker compose -f docker-compose.yml -f docker-compose.gh.actions.yml up --build -d
+
+      - name: Wait for Services to be Ready
+        run: |
+          echo "Waiting for services to start..."
+          sleep 3  # Adjust based on startup time
+
+      - name: Run Backend Tests
+        run: docker compose exec flask-app pytest
+
+      - name: Setup and Run Playwright Tests
+        run: |
+          docker compose exec playwright npm install
+          docker compose exec playwright npx playwright install
+          docker compose exec playwright npx playwright test
+
+      - name: Collect Docker Compose Logs
+        if: always()
+        run: |
+          echo "::group::Docker Compose Logs"
+          docker compose logs --no-color
+          echo "::endgroup::"
+
+      - name: Stop and Clean up Docker
+        if: always()
+        run: docker compose down -v

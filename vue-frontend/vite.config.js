@@ -19,4 +19,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    host: '0.0.0.0', // Ensure Vite is accessible in Docker
+    strictPort: true,
+    port: 5173,
+    allowedHosts: ['vue-frontend'], // Allow Playwright to access Vite
+  },
 });

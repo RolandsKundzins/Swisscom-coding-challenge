@@ -6,7 +6,16 @@
 
 ## TO run the automated tests:
 
-`docker-compose run --rm flask-app pytest`
+- For flask-backend:
+  ```
+    // start docker compose and ...
+    docker compose run --rm flask-app pytest
+  ```
+- For vue-frontend:
+  ```bash
+    cd vue-frontend
+    npm run test
+  ```
 
 # Additional information
 
