@@ -31,6 +31,9 @@ jobs:
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
 
+      - name: Install Node Dependencies for Playwright
+        run: docker compose exec playwright npm install
+
       - name: Run Playwright Tests
         run: docker compose exec playwright npx playwright test
 
