@@ -34,7 +34,7 @@ jobs:
       # - name: Install Playwright Browsers
       # run: docker compose exec playwright-tests npx playwright install
       - name: Run Playwright Tests
-        run: docker compose exec playwright-tests npx playwright test
+        run: docker compose exec playwright-tests npx playwright test --debug
         # Now possible since the container stays alive
 
       - name: Stop and Clean up Docker
