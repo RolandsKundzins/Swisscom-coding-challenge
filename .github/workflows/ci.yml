@@ -26,7 +26,7 @@ jobs:
       - name: Wait for Services to be Ready
         run: |
           echo "Waiting for services to start..."
-          sleep 10  # Adjust based on startup time
+          sleep 3  # Adjust based on startup time
 
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
@@ -40,16 +40,12 @@ jobs:
       - name: Run Playwright Tests
         run: docker compose exec playwright npx playwright test
 
-      # - name: Capture Docker logs
-      #   if: always()
-      #   run: docker compose logs > docker-compose.log
-
-      # - name: Save log file to artifacts
-      #   if: always()
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: docker-compose-log
-      #     path: docker-compose.log
+      - name: Collect Docker Compose Logs
+        if: always()
+        run: |
+          echo "::group::Docker Compose Logs"
+          docker compose logs --no-color
+          echo "::endgroup::"
 
       - name: Stop and Clean up Docker
         if: always()
