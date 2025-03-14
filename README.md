@@ -8,6 +8,7 @@
 
 - For flask-backend:
   ```
+    // start docker compose and ...
     docker compose run --rm flask-app pytest
   ```
 - For vue-frontend:

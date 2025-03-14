@@ -31,14 +31,11 @@ jobs:
       - name: Run Backend Tests
         run: docker compose exec flask-app pytest
 
-      - name: Install Node Dependencies for Playwright
-        run: docker compose exec playwright npm install
-
-      - name: Install Playwright Browsers
-        run: docker compose exec playwright npx playwright install
-
-      - name: Run Playwright Tests
-        run: docker compose exec playwright npx playwright test
+      - name: Setup and Run Playwright Tests
+        run: |
+          docker compose exec playwright npm install
+          docker compose exec playwright npx playwright install
+          docker compose exec playwright npx playwright test
 
       - name: Collect Docker Compose Logs
         if: always()
