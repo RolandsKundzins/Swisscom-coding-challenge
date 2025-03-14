@@ -13,6 +13,17 @@ services:
       - NODE_ENV=test
       - VITE_API_URL=http://flask-app:5000
 
+  playwright:
+    image: mcr.microsoft.com/playwright:latest
+    depends_on:
+      - flask-app
+      - vue-frontend
+    volumes:
+      - ./vue-frontend:/app
+    working_dir: /app
+    # Run all Playwright tests; if you prefer running a specific file, adjust the command accordingly.
+    command: ["tail", "-f", "/dev/null"]
+
   # playwright-tests:
   #   image: mcr.microsoft.com/playwright:v1.51.0
   #   depends_on:
