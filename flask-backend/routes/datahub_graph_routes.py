@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from services.datahub_service import fetch_dataset_entities
 
 log = logging.getLogger(__name__)
