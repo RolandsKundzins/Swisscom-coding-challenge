@@ -18,6 +18,8 @@ services:
     depends_on:
       - flask-app
       - vue-frontend
+    environment:
+      - BASE_URL=http://vue-frontend:5173
     volumes:
       - ./vue-frontend:/app
     working_dir: /app
